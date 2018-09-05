@@ -1,12 +1,18 @@
 import React from 'react'
 
-const Transaction = () => {
+const Transaction = (props) => {
+  console.log(props.posted)
+  const date = props.posted.forEach((post) => <td>{post}</td>)
+  console.log(date)
+
+
+
   return (
     <tr>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
+      <td>{props.posted}</td>
+      <td>{props.description}</td>
+      <td>{props.category}</td>
+      <td>{props.amount}</td>
     </tr>
   )
 }
