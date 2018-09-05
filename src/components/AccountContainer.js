@@ -1,5 +1,6 @@
 
 
+
 import React, { Component } from 'react'
 import TransactionsList from './TransactionsList'
 import Search from './Search'
@@ -9,7 +10,11 @@ class AccountContainer extends Component {
 
   constructor() {
     super()
-    this.state = {transactions: []}
+    this.state = {
+      transactions: [],
+      filteredTransactions: transactions,
+      input: ""
+    }
   }
 
   componentDidMount() {
@@ -17,19 +22,26 @@ class AccountContainer extends Component {
     fetch(URL).then(res => res.json()).then(data => this.setState({ transactions: data}))
   }
 
-//   handleChange = event => {
-//   event.persist()
-//   this.setState({
-//     [event.target.name]: event.target.value
-//   })
-// }
+  handleChange = event => {
+    // console.log(event.target.value)
+    event.persist()
+    let filtered = this.state.transactions.filter(transaction => transaction.description.toLowerCase().includes(event.target.value))
+    console.log(filtered)
 
+    this.setState({
+      ...this.state,
+      filteredTransactions: filtered,
+      input: event.target.value
+    } )
+    // () => console.log("setting new state:,", this.state)
+  }
 
   render() {
+    // console.log("Props & state in Account", this.props, this.state)
     return (
       <div>
-        <Search transactions={this.state.transactions} />
-        <TransactionsList transactions={this.state.transactions}/>
+        <Search handleChange={this.handleChange} input={this.state.input} />
+        <TransactionsList transactions={this.state.filteredTransactions}  />
       </div>
     )
   }

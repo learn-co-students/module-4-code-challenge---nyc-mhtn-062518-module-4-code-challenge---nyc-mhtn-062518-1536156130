@@ -5,7 +5,7 @@ const TransactionsList = (props) => {
   // console.log("props in TransactionsList:", props)
 
   const transactionsComponents = props.transactions.map(transaction => {
-      return <Transaction key={transaction.posted_at} transaction={transaction} />
+      return <Transaction key={transaction.posted_at} transaction={transaction} filteredTransaction={transaction}/>
     })
 
   return (
