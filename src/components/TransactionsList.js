@@ -2,6 +2,7 @@ import React from 'react'
 import Transaction from './Transaction'
 
 const TransactionsList = (props) => {
+  console.log(props.searchType)
   return (
     <table className="ui celled striped padded table">
       <tbody>
@@ -29,9 +30,7 @@ const TransactionsList = (props) => {
         </tr>
         {
           props.data.map(t => {
-            if (t.category.toLowerCase().includes(props.searchTerm.toLowerCase())
-                || t.description.toLowerCase().includes(props.searchTerm.toLowerCase())
-          ) {
+            if (t[props.searchType].toLowerCase().includes(props.searchTerm.toLowerCase())) {
               return (
                 <Transaction
                   key={t.id}

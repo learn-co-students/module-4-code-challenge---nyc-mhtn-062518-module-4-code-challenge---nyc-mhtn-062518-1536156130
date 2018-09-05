@@ -10,7 +10,8 @@ class AccountContainer extends Component {
     super()
     this.state = {
       data: [],
-      searchTerm: ''
+      searchTerm: '',
+      searchType: 'description'
     }
   }
 
@@ -22,11 +23,36 @@ class AccountContainer extends Component {
     this.setState({searchTerm: event.target.value})
   }
 
+  changeSearchType(e) {
+    this.setState({searchType: e.target.value})
+  }
+
   render() {
     return (
       <div>
+        <div className='ui center aligned header'>
+          <form onChange={e => this.changeSearchType(e)}>
+            <label>
+              <input
+              type="radio"
+              value="description"
+              checked={this.state.searchType === 'description'}
+              />
+              search by description
+            </label>
+            <br/>
+            <label>
+              <input
+              type="radio"
+              value="category"
+              checked={this.state.searchType === 'category'}
+              />
+              search by category
+            </label>
+          </form>
+        </div>
         <Search handleChange={this.handleChange.bind(this)}/>
-        <TransactionsList data={this.state.data} searchTerm={this.state.searchTerm}/>
+        <TransactionsList data={this.state.data} searchTerm={this.state.searchTerm} searchType={this.state.searchType}/>
       </div>
     )
   }
