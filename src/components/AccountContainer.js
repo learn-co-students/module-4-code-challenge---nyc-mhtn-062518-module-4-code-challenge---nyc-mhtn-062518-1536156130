@@ -19,12 +19,11 @@ class AccountContainer extends Component {
 
   componentDidMount() {
     fetch('https://boiling-brook-94902.herokuapp.com/transactions')
-    .this(res => res.json())
-    .this(json => this.setState({
+    .then(res => res.json())
+    .then(json => this.setState({
       transactions: json,
       show: json
     }))
-    // changed something last minute, working with ELbin, functionality of the app works, just fixing the fetch
   }
 
   handleChange = (event) => {
