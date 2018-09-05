@@ -12,18 +12,34 @@ class AccountContainer extends Component {
     // use this to get the functionality working
     // then replace the default transactions with a call to the API
 
+    this.state={
+      transactions: []
+    }
   }
 
-  handleChange(event) {
-    // your code here
+//Notes: my data is still showing the local data and not the link's data. I'm trying to fetch those in my ComponentDidMount
+
+  componentDidMount = () => {
+    fetch('https://boiling-brook-94902.herokuapp.com/transactions')
+    .then(res => res.json())
+    .then(data => this.setState({
+      transactions: data
+    }))
+}
+
+  handleChange = (event) => {
+    event.preventDefault()
+    this.setState({
+      transactions: this.state.transactions.includes(event.target.value)
+    })
   }
 
   render() {
-
+console.log(this.state)
     return (
       <div>
-        <Search />
-        <TransactionsList />
+        <Search handleChange={this.handleChange} />
+        <TransactionsList transactions={this.state.transactions} />
       </div>
     )
   }
